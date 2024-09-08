@@ -1,0 +1,8 @@
+tensorboard
+pandas
+matplotlib
+seaborn
+
+# For .ipynb
+pexpect
+psutil
