@@ -6,7 +6,8 @@ from tensorboard.backend.event_processing import event_accumulator
 def process_logfiles(dir, *, func=None, kwargs=dict()) -> list:
     """
     @param dir: Directory to be searched
-    @param func: Function to be used with log files. It should have `filename` parameter
+    @param func: Function to be used with log files. It is recommended to have `**kwargs` as function parameter.
+        Using parameter: filename, ea
     @param kwargs: For func
     """
     file_list = []
@@ -19,13 +20,14 @@ def process_logfiles(dir, *, func=None, kwargs=dict()) -> list:
                 file_list.append(filename)
                 if func is not None:
                     kwargs_ = kwargs.copy()
-                    kwargs_.update({'filename':filename})
+                    kwargs_.update({'filename':filename,
+                                    'ea': ea})
                     func(**kwargs_)
     return file_list
 
 
 if __name__ == "__main__":
-    def f(filename):
-        print(filename)
+    def f(file=None, **kwargs):
+        print(file)
     file_list = process_logfiles(dir="/home/control03/hojun/reward_elements/PPO_0", func=f)
     print(file_list)
