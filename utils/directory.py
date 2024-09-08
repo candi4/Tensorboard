@@ -3,7 +3,7 @@ from tensorboard.backend.event_processing import event_accumulator
 
 
 # Use function for tensorboard log files
-def process_logfiles(dir, func=None, kwargs=dict()) -> list:
+def process_logfiles(dir, *, func=None, kwargs=dict()) -> list:
     """
     @param dir: Directory to be searched
     @param func: Function to be used with log files. It should have `filename` parameter
