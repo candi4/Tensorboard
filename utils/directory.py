@@ -3,12 +3,12 @@ from tensorboard.backend.event_processing import event_accumulator
 
 
 # Use function for tensorboard log files
-def process_logfiles(dir, *, func=None, kwargs=dict()) -> list:
+def process_logfiles(dir, *, func=None, func_kwargs=dict()) -> list:
     """
     @param dir: Directory to be searched
     @param func: Function to be used with log files. It is recommended to have `**kwargs` as function parameter.
         Using parameter: filename, ea
-    @param kwargs: For func
+    @param func_kwargs: For func
     """
     file_list = []
     for root, dirs, files in os.walk(dir):
@@ -19,7 +19,7 @@ def process_logfiles(dir, *, func=None, kwargs=dict()) -> list:
             if len(ea.Tags()['scalars']) > 0:
                 file_list.append(filename)
                 if func is not None:
-                    kwargs_ = kwargs.copy()
+                    kwargs_ = func_kwargs.copy()
                     kwargs_.update({'filename':filename,
                                     'ea': ea})
                     func(**kwargs_)
