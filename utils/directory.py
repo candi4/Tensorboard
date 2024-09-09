@@ -20,7 +20,8 @@ def process_logfiles(dir, *, func=None, func_kwargs=dict()) -> list:
                 file_list.append(filename)
                 if func is not None:
                     kwargs_ = func_kwargs.copy()
-                    kwargs_.update({'filename':filename,
+                    kwargs_.update({'filename': filename,
+                                    'root': root,
                                     'ea': ea})
                     func(**kwargs_)
     return file_list
